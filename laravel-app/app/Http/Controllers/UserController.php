@@ -7,8 +7,10 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function create(): View
+    public function sayHi(): View
     {
-        return view('post.create');
+        return view('greeting')
+            ->with('name', 'Darani Shri')
+            ->with('occupation', 'Astronaut');
     }
 }
