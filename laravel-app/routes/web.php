@@ -18,5 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
- 
-Route::get('/post/create', [UserController::class, 'create']);
+Route::get('greeting', [UserController::class, 'sayHi']);
+Route::redirect('/home', 'greeting'); 
+
