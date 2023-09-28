@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -21,3 +22,9 @@ Route::get('/', function () {
 Route::get('greeting', [UserController::class, 'sayHi']);
 Route::redirect('/home', 'greeting'); 
 
+Route::get('view', [EmployeeController::class, 'displayData']);
+
+Route::get('insert',[EmployeeController::class,'insertform']);
+Route::post('/create',[EmployeeController::class,'insert']);
+
+Route::get('delete/{id}',[EmployeeController::class, 'destroy']);
