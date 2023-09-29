@@ -25,6 +25,10 @@ Route::redirect('/home', 'greeting');
 Route::get('view', [EmployeeController::class, 'displayData']);
 
 Route::get('insert',[EmployeeController::class,'insertform']);
-Route::post('/create',[EmployeeController::class,'insert']);
+Route::post('/create',[EmployeeController::class,'insertEmployee']);
 
 Route::get('delete/{id}',[EmployeeController::class, 'destroy']);
+
+Route::get('edit/{id}', [EmployeeController::class, 'edit']);
+Route::post('update', [EmployeeController::class, 'update']);
+
