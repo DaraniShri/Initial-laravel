@@ -27,4 +27,15 @@ Route::get('view', [EmployeeController::class, 'displayData']);
 Route::get('insert',[EmployeeController::class,'insertform']);
 Route::post('/create',[EmployeeController::class,'insert']);
 
+<<<<<<< Updated upstream
 Route::get('delete/{id}',[EmployeeController::class, 'destroy']);
+=======
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('admin/login', function () {
+    return view('employees/login');
+});
+>>>>>>> Stashed changes
