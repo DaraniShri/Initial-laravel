@@ -32,11 +32,3 @@ Route::get('delete/{id}',[EmployeeController::class, 'destroy']);
 Route::get('edit/{id}', [EmployeeController::class, 'edit']);
 Route::post('update', [EmployeeController::class, 'update']);
 
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('admin/login', function () {
-    return view('employees/login');
-});
