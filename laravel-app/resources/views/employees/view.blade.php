@@ -4,7 +4,7 @@
     </head>
     <body>
         <div class="table-responsive">
-            <table id="table">
+            <table class="table table-striped" id="id-table">
                 <thead>
                     <tr>
                         <th><strong>Employee ID</strong></th>
@@ -14,20 +14,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <script>
-                        $(document).ready( function () {
-                            $('table').DataTable( function({
-                                
-                            }));
-                        } );
-                    </script> -->
-                    @foreach($employees as $key => $employee)
-                    <tr class="employee{{$employee->id}}">
-                        <td>{{$employee->id}}</td>
-                        <td>{{$employee->employee_name}}</td>
-                        <td>{{$employee->employee_email}}</td>
-                    </tr>
-                    @endforeach
+                
                 </tbody>
             </table>
         </div>
@@ -36,22 +23,27 @@
 </html>
 <script type="text/javascript">
 $(document).ready( function () {
-    var data = [
-        [
-            "1",
-            "System Architect",
-            "Edinburgh@gmail.com",
-            
+    var data = "{{ $employees }}";
+    var employeeList = JSON.parse(data.replace(/&quot;/g,'"'));
+    var table = new DataTable('#id-table',{
+        data: employeeList,
+        columns: [
+            { data: 'id' },
+            { data: 'employee_name' },
+            { data: 'employee_email' }, 
+            { defaultContent: '<button class="btn btn-primary" id="edit-employee">Edit</button><button class="btn btn-danger" id="delete-employee">Delete</button>'}             
         ],
-        [
-            "2",
-            "Director",
-            "Edinburgh@gmail.com",
-            
-        ]
-    ];
-    jquery('#table').DataTable({
-        data: data,
+    });
+    $("#edit-employee").click(function () {
+        $(this).closest("tr").find('td:first').map(function(){
+            window.location.href = window.location.origin+"/edit/"+$(this).text();
+        });
+    });
+    $("#delete-employee").click(function () {
+        $(this).closest("tr").find('td:first').map(function(){
+            window.location.href = window.location.origin+"/delete/"+$(this).text();
+        });
     });
 });
+
 </script>
