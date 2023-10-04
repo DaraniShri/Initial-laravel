@@ -33,6 +33,9 @@ class TouristCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/tourist');
         CRUD::setEntityNameStrings('tourist', 'tourists');
 
+        CRUD::operation('list', function() {
+            CRUD::column('Address');
+        });
     }
 
     /**
@@ -97,9 +100,9 @@ class TouristCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function index(){
-        $touristId = Tourist::all('id');
+    public function getTouristAddress(){
+        // $touristId = Tourist::with('id')->first();
         $address = Tourist::find(1)->tourist_address;
-        $touristAddress = Tourists_Address::where('tourist_id', $touristId)->first();
+        // $touristAddress = Tourists_Address::where('tourist_id', $touristId)->first();
     }
 }
