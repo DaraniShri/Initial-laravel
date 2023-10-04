@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\TouristRequest;
+use App\Models\Tourists_Address;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
+use App\Models\Tourist;
 
 /**
  * Class TouristCrudController
@@ -26,9 +29,10 @@ class TouristCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Tourist::class);
+        CRUD::setModel(Tourist::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/tourist');
         CRUD::setEntityNameStrings('tourist', 'tourists');
+
     }
 
     /**
@@ -45,6 +49,22 @@ class TouristCrudController extends CrudController
          * Columns can be defined using the fluent syntax:
          * - CRUD::column('price')->type('number');
          */
+
+        $totalTourists = Tourist::count();
+        Widget::add()->to('before_content')->type('div')->class('row')->content([
+            Widget::make(
+                [
+                    'type'       => 'card',
+                    'class'   => 'tourists_details',
+                    'wrapper' => ['class' => 'tourists_details_container'],
+                    'content'    => [
+                        'header' => 'Number of Tourists : '.$totalTourists, 
+                        'body' => 'HAPPY JOURNEY',                       
+                    ]
+                ]
+            ),
+        ]
+        );
     }
 
     /**
@@ -62,6 +82,8 @@ class TouristCrudController extends CrudController
          * Fields can be defined using the fluent syntax:
          * - CRUD::field('price')->type('number');
          */
+
+        
     }
 
     /**
@@ -73,5 +95,11 @@ class TouristCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    public function index(){
+        $touristId = Tourist::all('id');
+        $address = Tourist::find(1)->tourist_address;
+        $touristAddress = Tourists_Address::where('tourist_id', $touristId)->first();
     }
 }
