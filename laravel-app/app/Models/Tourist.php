@@ -5,6 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Tourist extends Model
 {
@@ -53,4 +54,9 @@ class Tourist extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
+
+    public function tourist_address(): HasOne
+    {
+        return $this->hasOne(Tourists_Address::class, 'tourist_id', 'id');
+    }
 }
