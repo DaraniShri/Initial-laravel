@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\TouristRequest;
-use App\Models\Tourists_Address;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Backpack\CRUD\app\Library\Widget;
@@ -33,9 +32,14 @@ class TouristCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/tourist');
         CRUD::setEntityNameStrings('tourist', 'tourists');
 
-        CRUD::operation('list', function() {
-            CRUD::column('Address');
-        });
+        CRUD::addColumn([
+            'label' => 'Address',
+            'type' => 'text',
+            'name' => 'tourist_id', // the db column for the foreign key
+            'entity' => 'tourist_address', // the method that defines the relationship in your Model
+            'attribute' => 'tourist_id', // foreign key attribute that is shown to user
+            'model' => 'App\Models\Tourists_Address' // foreign key model
+        ]);
     }
 
     /**
@@ -100,9 +104,7 @@ class TouristCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function getTouristAddress(){
-        // $touristId = Tourist::with('id')->first();
-        $address = Tourist::find(1)->tourist_address;
-        // $touristAddress = Tourists_Address::where('tourist_id', $touristId)->first();
+    public function getT(){
+        $address = Tourist::find(1)->tourist_address;  
     }
 }

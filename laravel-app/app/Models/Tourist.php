@@ -18,11 +18,17 @@ class Tourist extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'tourists';
+    public $table = 'tourists';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $fillable = [
+        'id',
+        'tourist_name',
+        'tourist_spot',
+        'created_at',
+        'updated_at',
+    ];
     // protected $hidden = [];
 
     /*

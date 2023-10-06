@@ -22,21 +22,25 @@ Route::get('/', function () {
 Route::get('greeting', [UserController::class, 'sayHi']);
 Route::redirect('/home', 'greeting'); 
 
-Route::get('view', [EmployeeController::class, 'displayData']);
+Route::controller(EmployeeController::class)->group(function () {
+    Route::get('view','displayData');
+    Route::get('insert','insertform');
+    Route::get('insert',[EmployeeController::class,'insertform']);
+    Route::post('/create','insertEmployee');
 
-Route::get('insert',[EmployeeController::class,'insertform']);
-Route::post('/create',[EmployeeController::class,'insertEmployee']);
+    Route::get('delete/{id}','destroy');
 
-Route::get('delete/{id}',[EmployeeController::class, 'destroy']);
+    Route::get('edit/{id}', 'edit');
+    Route::post('update', 'update');
+});
 
-Route::get('edit/{id}', [EmployeeController::class, 'edit']);
-Route::post('update', [EmployeeController::class, 'update']);
+
 
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('admin/login', function () {
+Route::get('employee/login', function () {
     return view('employees/login');
 });
