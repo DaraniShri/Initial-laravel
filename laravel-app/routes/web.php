@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CmspageCrudController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -43,4 +44,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('employee/login', function () {
     return view('employees/login');
+});
+
+Route::controller(CmspageCrudController::class)->group(function () {
+    Route::get('/cms','displayData');
 });

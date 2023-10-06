@@ -1,0 +1,25 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.header, .footer{
+    background-color: black;
+    color: white;
+}
+.header{
+    padding: 50px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+.footer-content{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.cms-container{
+    display: grid;
+    grid:100px / auto auto auto;
+}
+.cms-card{
+    margin: 30px;
+}
