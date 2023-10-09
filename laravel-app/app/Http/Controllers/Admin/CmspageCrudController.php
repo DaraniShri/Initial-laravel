@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\TouristRequest;
+use App\Http\Requests\CmspageRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Backpack\CRUD\app\Library\Widget;
-use App\Models\Tourist;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
+
 
 
 /**
- * Class TouristCrudController
+ * Class CmspageCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class TouristCrudController extends CrudController
+class CmspageCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -29,16 +30,20 @@ class TouristCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Tourist::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/tourist');
-        CRUD::setEntityNameStrings('tourist', 'tourists');
+        CRUD::setModel(\App\Models\Cmspage::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/cmspage');
+        CRUD::setEntityNameStrings('cmspage', 'cmspages');
 
-        CRUD::addColumn([
-            'label' => 'Address',
-            'type' => 'relationship',
-            'name' => 'city', // the db column for the foreign key
-            'attribute' => 'city', // foreign key attribute that is shown to user
-            'model' => 'App\Models\Tourists_Address' // foreign key model
+        CRUD::addField([
+            'label' => "banner",
+            'name' => "image",
+            'type' => 'upload',
+            'upload'=> true,
+            'crop' => true, 
+            'aspect_ratio' => 1,
+            'withFiles' => [
+                'path' => 'image',
+            ],
         ]);
     }
 
@@ -56,22 +61,6 @@ class TouristCrudController extends CrudController
          * Columns can be defined using the fluent syntax:
          * - CRUD::column('price')->type('number');
          */
-
-        $totalTourists = Tourist::count();
-        Widget::add()->to('before_content')->type('div')->class('row')->content([
-            Widget::make(
-                [
-                    'type'       => 'card',
-                    'class'   => 'tourists_details',
-                    'wrapper' => ['class' => 'tourists_details_container'],
-                    'content'    => [
-                        'header' => 'Number of Tourists : '.$totalTourists, 
-                        'body' => 'HAPPY JOURNEY',                       
-                    ]
-                ]
-            ),
-        ]
-        );
     }
 
     /**
@@ -82,7 +71,7 @@ class TouristCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(TouristRequest::class);
+        CRUD::setValidation(CmspageRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
 
         /**
@@ -102,7 +91,10 @@ class TouristCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function getT(){
-        $address = Tourist::find(1)->tourist_address;  
+    public function displayData(): View
+    {
+        $cmsPages = DB::table('cmspages')->get()->toArray();
+        return view('cmspage/cms', ['cmspages'=>$cmsPages]);
+            
     }
 }
