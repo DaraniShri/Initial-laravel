@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\CmspageRequest;
+use App\Http\Requests\StudentRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
-
-
 
 /**
- * Class CmspageCrudController
+ * Class StudentCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class CmspageCrudController extends CrudController
+class StudentCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -30,21 +26,9 @@ class CmspageCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Cmspage::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/cmspage');
-        CRUD::setEntityNameStrings('cmspage', 'cmspages');
-
-        CRUD::addField([
-            'label' => "banner",
-            'name' => "image",
-            'type' => 'upload',
-            'upload'=> true,
-            'crop' => true, 
-            'aspect_ratio' => 1,
-            'withFiles' => [
-                'path' => 'image',
-            ],
-        ]);
+        CRUD::setModel(\App\Models\Student::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/student');
+        CRUD::setEntityNameStrings('student', 'students');
     }
 
     /**
@@ -71,7 +55,7 @@ class CmspageCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(CmspageRequest::class);
+        CRUD::setValidation(StudentRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
 
         /**
@@ -89,17 +73,5 @@ class CmspageCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
-    }
-
-    public function displayData(): View
-    {
-        $cmsPages = DB::table('cmspages')->get()->toArray();
-        return view('cmspage/cms', ['cmspages'=>$cmsPages]); 
-    }
-
-    public function displayCMSPage($id): View
-    {
-        $cmsPage = DB::table('cmspages')->get()->where('id',$id);
-        return view('cmspage/single', ['cmspage'=>$cmsPage]);        
     }
 }

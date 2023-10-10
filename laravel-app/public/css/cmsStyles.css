@@ -7,7 +7,7 @@ body{
     color: white;
 }
 .header{
-    padding: 50px;
+    padding: 20px;
     display: flex;
     flex-wrap: nowrap;
 }
@@ -18,8 +18,23 @@ body{
 }
 .cms-container{
     display: grid;
-    grid:100px / auto auto auto;
+    grid-template-columns: 290px 290px 290px;
 }
 .cms-card{
-    margin: 30px;
+    margin:20px;
+    background-color: #F2E8DF;
+}
+img{
+    width: 100%;
+}
+.single-container{
+    margin: 20px;
+    width: 500px;
+}
+.cms-description{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }

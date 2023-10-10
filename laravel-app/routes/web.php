@@ -47,5 +47,13 @@ Route::get('employee/login', function () {
 });
 
 Route::controller(CmspageCrudController::class)->group(function () {
-    Route::get('/cms','displayData');
+    Route::get('cms','displayData');
+    Route::get('cms-single/{id}','displayCMSPage');
+});
+
+Route::get('user/login', function () {
+    return view('user/login');
+});
+Route::get('window', function () {
+    return view('user/window');
 });

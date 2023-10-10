@@ -20,7 +20,7 @@ class Cmspage extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    // protected $fillable = ['title','description','status'];
+    protected $fillable = ['title','description','status'];
 
     // protected $hidden = [];
 
