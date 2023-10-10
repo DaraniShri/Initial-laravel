@@ -1,6 +1,6 @@
 <html>
     <head>
-        @include('student.header')
+        @include('user.header')
     </head>
     <body>
         <div class="wrapper">
@@ -8,14 +8,17 @@
                 <div class="col-sm">
                 </div>
                 <div class="col-sm">
-                <form action="/student/signin" method="post">
-                    @csrf
+                <form action="{{ route('student_register') }}" method="post">
+                @csrf
                     <div class="form-group">
-                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" id="password" placeholder="Password" required>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                     </div>
                     <button type="submit" class="btn btn-primary" name="submit">Login</button>
                     </form>
@@ -24,6 +27,6 @@
                 </div>
             </div>
         </div>
-        @include('student.footer')
+        @include('user.footer')
     </body>
 </html>

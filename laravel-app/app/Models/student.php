@@ -5,18 +5,28 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\UUID;
+use Laravel\Sanctum\HasApiTokens;
 
 
 class student extends Model
 {
     use CrudTrait;
     use HasFactory;
-    use UUID;
+    use HasApiTokens;
     protected $fillable = [
         'name',
         'email',
         'password',
+    ];
+
+     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -25,6 +35,6 @@ class student extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'password' => 'hashed',
+        'email_verified_at' => 'datetime',
     ];
 }
