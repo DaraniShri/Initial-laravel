@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CmspageCrudController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthenticationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,19 @@ Route::controller(EmployeeController::class)->group(function () {
     Route::post('update', 'update');
 });
 
+Route::get('student/create', function () {
+    return view('user/create');
+});
 
+Route::get('student/login', function () {
+    return view('user/login');
+});
+
+Route::controller(AuthenticationController::class)->group(function () {
+    Route::post('/student_signin','signinAccount')->name('student_signin');
+    Route::post('/student_register','createAccount')->name('student_register');
+    Route::post('/student_signout','signoutAccount')->name('student_signout');
+});
 
 
 Auth::routes();
@@ -47,7 +60,7 @@ Route::get('employee/login', function () {
 });
 
 Route::controller(CmspageCrudController::class)->group(function () {
-    Route::get('cms','displayData');
+    Route::get('cms','displayData')->name('cms');
     Route::get('cms-single/{id}','displayCMSPage');
 });
 
