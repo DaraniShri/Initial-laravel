@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthenticationController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,11 +63,4 @@ Route::get('employee/login', function () {
 Route::controller(CmspageCrudController::class)->group(function () {
     Route::get('cms','displayData')->name('cms');
     Route::get('cms-single/{id}','displayCMSPage');
-});
-
-Route::get('user/login', function () {
-    return view('user/login');
-});
-Route::get('window', function () {
-    return view('user/window');
 });
