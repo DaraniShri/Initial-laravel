@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\student;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class AuthenticationController extends Controller
 {
@@ -13,7 +14,7 @@ class AuthenticationController extends Controller
         $Student = Student::create([
             'name'  => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
+            'password' => $request->input('password'),
         ]);
         $tokenResult = $Student->createToken('Personal Access Token');
         $token = $tokenResult->plainTextToken;
@@ -23,29 +24,19 @@ class AuthenticationController extends Controller
         ],201);
     }
 
-    public function signin(Request $request)
+    public function signinAccount(Request $request)
     {
-        $attr = $request->validate([
-            'email' => 'required|string|email|',
-            'password' => 'required|string|min:6'
-        ]);
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-        if (!Auth::attempt($attr)) {
-            return $this->error('Credentials not match', 401);
+        $student = new Student();
+        $studentDetails = $student->getStudent($email,$password);
+        if($studentDetails){
+            return redirect()->route('cms');
         }
-
-        return $this->success([
-            'token' => auth()->user()->createToken('API Token')->plainTextToken
-        ]);
+    }  
+    
+    public function signoutAccount(){
+        dd("irnf");
     }
-
-
-    // public function signout()
-    // {
-    //     auth()->user()->tokens()->delete();
-
-    //     return [
-    //         'message' => 'Tokens Revoked'
-    //     ];
-    // }
 }
