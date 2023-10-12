@@ -66,4 +66,3 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('employee/login', function () {
     return view('employees/login');
 });
-
