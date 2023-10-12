@@ -10,6 +10,7 @@ body{
     padding: 20px;
     display: flex;
     flex-wrap: nowrap;
+    justify-content: space-evenly;
 }
 .footer-content{
     display: flex;
@@ -37,4 +38,8 @@ img{
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+}
+.signout{
+    width: 90px;
+    border-radius: 20px;
 }

@@ -5,23 +5,29 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-<<<<<<< Updated upstream
-use App\Traits\UUID;
-=======
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\DB;
->>>>>>> Stashed changes
 
 
 class Student extends Model
 {
     use CrudTrait;
     use HasFactory;
-    use UUID;
+    use HasApiTokens;
     protected $fillable = [
         'name',
         'email',
         'password',
+    ];
+
+     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -30,14 +36,18 @@ class Student extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'password' => 'hashed',
+        'email_verified_at' => 'datetime',
     ];
-<<<<<<< Updated upstream
-}
-=======
 
-    public function getStudent($email, $password){
-        return DB::table('students')->where(["email"=>$email, "password"=>$password])->get();
+    public function getStudent($email){
+        return DB::table('students')->where('email',$email)->get();
+    }
+
+    public function updateStudent($id, $name, $email, $password){
+        $values=array('name' => $name,'email' => $email, 'password' => $password);
+        $affected = DB::table('students')
+                ->where('id', $id)
+                ->update($values);
+        return $affected;
     }
 }
->>>>>>> Stashed changes
