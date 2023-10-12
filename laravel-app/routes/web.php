@@ -28,7 +28,6 @@ Route::redirect('/home', 'greeting');
 Route::controller(EmployeeController::class)->group(function () {
     Route::get('view','displayData');
     Route::get('insert','insertform');
-    Route::get('insert',[EmployeeController::class,'insertform']);
     Route::post('/create','insertEmployee');
 
     Route::get('delete/{id}','destroy');
