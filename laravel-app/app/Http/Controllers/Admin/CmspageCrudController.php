@@ -7,6 +7,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Request;
 
 
 
@@ -91,15 +92,25 @@ class CmspageCrudController extends CrudController
         $this->setupCreateOperation();
     }
 
-    public function displayData(): View
+    public function displayData(Request $request): View
     {
-        $cmsPages = DB::table('cmspages')->get()->toArray();
-        return view('cmspage/cms', ['cmspages'=>$cmsPages]); 
+        if(Request::session()->has('userEmail')){
+            $cmsPages = DB::table('cmspages')->get()->toArray();
+            return view('cmspage/cms', ['cmspages'=>$cmsPages]); 
+        }
+        else{
+            return view('user/login');
+        }
     }
 
     public function displayCMSPage($id): View
     {
-        $cmsPage = DB::table('cmspages')->get()->where('id',$id);
-        return view('cmspage/single', ['cmspage'=>$cmsPage]);        
+        if(Request::session()->has('userEmail')){
+            $cmsPage = DB::table('cmspages')->get()->where('id',$id);
+            return view('cmspage/single', ['cmspage'=>$cmsPage]);   
+        }
+        else{
+            return view('user/login');
+        }        
     }
 }

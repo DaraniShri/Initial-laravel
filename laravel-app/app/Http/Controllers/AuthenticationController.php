@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Hash;
 
 
 class AuthenticationController extends Controller
@@ -14,7 +14,7 @@ class AuthenticationController extends Controller
         $Student = Student::create([
             'name'  => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => $request->input('password'),
+            'password' => Hash::make($request->input('password')),
         ]);
         $tokenResult = $Student->createToken('Personal Access Token');
         $token = $tokenResult->plainTextToken;
@@ -24,19 +24,44 @@ class AuthenticationController extends Controller
         ],201);
     }
 
+    public function updateProfile(Request $request){
+        $id = $request->input('id');
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $password = Hash::make($request->input('password'));
+        $student = new Student();
+        if($student->updateStudent($id, $name, $email, $password)){
+            $request->session()->put('userId',$id);
+            $request->session()->put('userName',$name);
+            return redirect()->route('cms');
+        }
+    }
+
     public function signinAccount(Request $request)
     {
         $email = $request->input('email');
         $password = $request->input('password');
-
         $student = new Student();
-        $studentDetails = $student->getStudent($email,$password);
-        if($studentDetails){
+        $studentDetails = $student->getStudent($email);
+
+        foreach($studentDetails as $student){
+            $id = $student->id;
+            $name = $student->name;
+            $hashPassword = $student->password;
+        }
+        if(Hash::check($password, $hashPassword)){
+            $request->session()->put('userId',$id);
+            $request->session()->put('userName',$name);
+            $request->session()->put('userEmail',$email);
             return redirect()->route('cms');
         }
+        else{
+            return view('user/login');
+        }
     }  
-    
-    public function signoutAccount(){
-        dd("irnf");
+    public function signoutAccount(Request $request){
+        $request->session()->forget('userEmail');
+        return view('user/login');
+        
     }
 }

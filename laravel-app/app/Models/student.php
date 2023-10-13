@@ -39,7 +39,15 @@ class Student extends Model
         'email_verified_at' => 'datetime',
     ];
 
-    public function getStudent($email, $password){
-        return DB::table('students')->where(["email"=>$email, "password"=>$password])->get();
+    public function getStudent($email){
+        return DB::table('students')->where('email',$email)->get();
+    }
+
+    public function updateStudent($id, $name, $email, $password){
+        $values=array('name' => $name,'email' => $email, 'password' => $password);
+        $affected = DB::table('students')
+                ->where('id', $id)
+                ->update($values);
+        return $affected;
     }
 }
