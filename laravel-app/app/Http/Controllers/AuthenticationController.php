@@ -31,8 +31,9 @@ class AuthenticationController extends Controller
         $password = Hash::make($request->input('password'));
         $student = new Student();
         if($student->updateStudent($id, $name, $email, $password)){
-            $request->session()->put('userId',$id);
             $request->session()->put('userName',$name);
+            $request->session()->put('userEmail',$email);
+            $request->session()->save();
             return redirect()->route('cms');
         }
     }
@@ -61,7 +62,6 @@ class AuthenticationController extends Controller
     }  
     public function signoutAccount(Request $request){
         $request->session()->forget('userEmail');
-        return view('user/login');
-        
+        return view('user/login');        
     }
 }
