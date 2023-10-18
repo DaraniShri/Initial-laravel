@@ -1,0 +1,23 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.header, .footer{
+    background-color: black;
+    color: white;
+}
+.header{
+    padding: 50px;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0;
+}
+.footer-content{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.wrapper{
+    margin: 30px;
+}
+

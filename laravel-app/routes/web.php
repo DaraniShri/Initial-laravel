@@ -5,6 +5,9 @@ use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\Role\LoginController;
+use App\Http\Controllers\Role\RegisterController;
+
 
 
 /*
@@ -65,4 +68,24 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('employee/login', function () {
     return view('employees/login');
+});
+
+
+Route::get('roles/login', function () {
+    return view('roles/login');
+});
+Route::get('roles/register', function () {
+    return view('roles/register');
+});
+Route::get('/manager_dashboard', function () {
+    return view('roles/manager/dashboard');
+});
+Route::get('/admin_dashboard', function () {
+    return view('roles/manager/dashboard');
+});
+Route::controller(LoginController::class)->group(function () {
+    Route::post('/signin','authenticate')->name('roles_signin');
+});
+Route::controller(RegisterController::class)->group(function () {
+    Route::post('/register','creation')->name('roles_register');
 });

@@ -1,0 +1,9 @@
+<html>
+    <head>
+        @include('roles.header')
+    </head>
+    <body>
+        <h1>Manager</h1>
+        @include('roles.footer')
+    </body>
+</html>
