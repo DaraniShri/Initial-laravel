@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\Work\RegisterController;
 
 
 /*
@@ -28,3 +29,4 @@ Route::controller(StudentController::class)->group(function () {
     Route::post('delete/{id}','destroy');
 });
 
+Route::post('/register', RegisterController::class);
