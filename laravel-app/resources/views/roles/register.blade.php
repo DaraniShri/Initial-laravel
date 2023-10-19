@@ -21,7 +21,10 @@
                         <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                     </div>
                     <button type="submit" class="btn btn-primary" name="submit">Login</button>
-                    </form>
+                    <div>
+                        Already have an account? <a href="{{ url('roles/login') }}"><strong> Sign In</strong></a>
+                    </div>    
+                </form>
                 </div>
                 <div class="col-sm">
                 </div>

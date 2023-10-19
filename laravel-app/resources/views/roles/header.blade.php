@@ -7,4 +7,7 @@
     <div class="container">
         <h2><center>Roles<center></h2>
     </div>
+    <div class="sign-out-button">
+        <a href="{{ url('role/signout') }}" class="btn btn-danger">Signout</a>
+    </div>
 </section>

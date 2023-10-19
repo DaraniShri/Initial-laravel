@@ -17,6 +17,7 @@ class LoginController extends Controller
 
         if (Auth::attempt(['email' => $email, 'password' => $password]))
         {
+            $request->session()->put('roleEmail',$email);
             $role = Role::find(Auth::user()->role_id);
             $role_name = $role->name;
             if($role_name == 'manager'){
@@ -24,6 +25,9 @@ class LoginController extends Controller
             }
             if($role_name == 'admin'){
                 return view('roles/admin/dashboard');
+            }
+            if($role_name == 'supervisor'){
+                return view('roles/supervisor/dashboard');
             }
         }
     }

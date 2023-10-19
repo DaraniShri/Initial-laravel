@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Manager</title>
+        <title>Supervisor</title>
         @include('roles.header')
     </head>
     <body>
@@ -8,10 +8,7 @@
             <div class="row">
                 <div class="col-sm">
                 </div>
-                <div class="col-sm">
-                    <div>
-                        <a href="{{ url('supervisor/view') }}" class="btn btn-outline-success">Supervisor</a>
-                    </div>
+                <div class="col-sm">    
                     <div>
                         <a href="{{ url('worker/view') }}" class="btn btn-outline-success">Worker</a>
                     </div>

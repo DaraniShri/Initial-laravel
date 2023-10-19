@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use App\Models\Role;
 use App\Models\User;
 use Hash;
 
@@ -25,7 +26,7 @@ class RegisterController extends Controller
         }        
 
         return User::create([
-            'role_id' => '4',
+            'role_id' => Role::ROLE_WORKER,
             'name'  => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
