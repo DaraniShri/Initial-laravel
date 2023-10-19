@@ -5,13 +5,10 @@ use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthenticationController;
-<<<<<<< Updated upstream
-=======
 use App\Http\Controllers\Role\LoginController;
 use App\Http\Controllers\Role\RegisterController;
 use App\Http\Controllers\Role\DataController;
 
->>>>>>> Stashed changes
 
 
 /*
@@ -73,8 +70,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('employee/login', function () {
     return view('employees/login');
 });
-<<<<<<< Updated upstream
-=======
 
 
 Route::get('roles/login', function () {
@@ -110,4 +105,3 @@ Route::controller(DataController::class)->group(function () {
 });
 
 
->>>>>>> Stashed changes

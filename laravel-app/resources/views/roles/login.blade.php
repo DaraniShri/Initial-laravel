@@ -20,7 +20,7 @@
                         <button type="submit" class="btn btn-primary" name="submit">Login</button>
                         <div>
                             Don't have an account? <a href="{{ url('roles/register') }}"><strong> Sign Up</strong></a>
-                        </div>
+                        </div>            
                     </form>
                 </div>
                 <div class="col-sm">
