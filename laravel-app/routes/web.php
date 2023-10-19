@@ -5,6 +5,13 @@ use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthenticationController;
+<<<<<<< Updated upstream
+=======
+use App\Http\Controllers\Role\LoginController;
+use App\Http\Controllers\Role\RegisterController;
+use App\Http\Controllers\Role\DataController;
+
+>>>>>>> Stashed changes
 
 
 /*
@@ -66,3 +73,41 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('employee/login', function () {
     return view('employees/login');
 });
+<<<<<<< Updated upstream
+=======
+
+
+Route::get('roles/login', function () {
+    return view('roles/login');
+});
+Route::get('roles/register', function () {
+    return view('roles/register');
+});
+Route::get('/manager_dashboard', function () {
+    return view('roles/manager/dashboard');
+});
+Route::get('/admin_dashboard', function () {
+    return view('roles/manager/dashboard');
+});
+Route::controller(LoginController::class)->group(function () {
+    Route::post('/signin','authenticate')->name('roles_signin');
+});
+Route::controller(RegisterController::class)->group(function () {
+    Route::post('/register','creation')->name('roles_register');
+});
+Route::get('manager/view', function () {
+    return view('roles/manager/view');
+});
+Route::get('supervisor/view', function () {
+    return view('roles/supervisor/view');
+});
+
+Route::controller(DataController::class)->group(function () {
+    Route::get('worker/view','getWorker');
+    Route::get('supervisor/view','getSupervisor');
+    Route::get('manager/view','getManager');
+    Route::get('role/signout', 'logoutRole');
+});
+
+
+>>>>>>> Stashed changes
